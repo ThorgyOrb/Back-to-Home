@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Playercontroller : MonoBehaviour
 {
     public float speed = 10.0f;
@@ -10,6 +10,9 @@ public class Playercontroller : MonoBehaviour
     //animation component
     public Animator playerAnim;
     public bool isOnGround = true;
+    public Image barraVida;
+    public float vidaActual;
+    public float vidaMaxima;
 
     
 
@@ -26,6 +29,7 @@ public class Playercontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        barraVida.fillAmount = vidaActual / vidaMaxima;
         //move the player with a d 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -57,6 +61,17 @@ public class Playercontroller : MonoBehaviour
         {
             transform.position = new Vector3(-10, transform.position.y, transform.position.z);
 
+        }
+        //aboid the player jump out of the screen y axis
+        if (transform.position.y > 5)
+        {
+            transform.position = new Vector3(transform.position.x, 5, transform.position.z);
+        }
+        if (transform.position.y < -8)
+        {
+            transform.position = new Vector3(transform.position.x, -8, transform.position.z);
+            Debug.Log("Game Over");
+            vidaActual = 0;
         }
        
         //change the player orientation
