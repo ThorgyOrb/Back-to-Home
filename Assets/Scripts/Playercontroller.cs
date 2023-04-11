@@ -112,6 +112,15 @@ public class Playercontroller : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            vidaActual -= 10;
+            Debug.Log("Vida Actual: " + vidaActual);
+        }
+    }
     
 
 }
